@@ -1,0 +1,81 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "path/to/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "path/to/directory1",
+        "path/to/directory2"
+      ]
+    },
+    "sqlite": {
+      "command": "mcp-server-sqlite",
+      "args": ["--db-path", "path/to/your/database.db"],
+      "env": {
+        "MCP_SQLITE_REGISTRY": "path/to/db1.sqlite:path/to/db2.db:path/to/project_dir/*/database.sqlite"
+      }
+    },
+    "puppeteer": {
+      "command": "node",
+      "args": [
+        "path/to/node_modules/@modelcontextprotocol/server-puppeteer/dist/index.js"
+      ],
+      "env": {
+        "PUPPETEER_HEADLESS": "true",
+        "PUPPETEER_EXECUTABLE_PATH": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+      }
+    },
+    "github": {
+      "command": "node",
+      "args": [
+        "path/to/node_modules/@modelcontextprotocol/server-github/dist/index.js"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${CLAUDE_DESKTOP_GITHUB_TOKEN}"
+      }
+    },
+    "fetch": {
+      "command": "mcp-server-fetch",
+      "args": [
+        "--user-agent",
+        "Claude Desktop MCP Client (via fetch-server)",
+        "--ignore-robots-txt"
+      ],
+      "env": {
+        "MCP_FETCH_PREFERRED": "true",
+        "MCP_FETCH_DEFAULT": "true",
+        "MCP_FETCH_PARSE_FALLBACK": "text",
+        "MCP_FETCH_MAX_SIZE": "5242880",
+        "MCP_FETCH_TIMEOUT": "60000"
+      }
+    },
+    "time": {
+      "command": "mcp-server-time",
+      "args": ["--local-timezone=America/Los_Angeles"]
+    },
+    "http": {
+      "command": "mcp-server-fetch",
+      "args": [
+        "--user-agent",
+        "Claude Desktop HTTP Client",
+        "--ignore-robots-txt"
+      ],
+      "env": {
+        "MCP_FETCH_PARSE_FALLBACK": "text",
+        "MCP_FETCH_MAX_SIZE": "5242880",
+        "MCP_FETCH_TIMEOUT": "60000"
+      }
+    },
+    "cli": {
+      "command": "path/to/cli-mcp-server",
+      "args": [],
+      "env": {
+        "ALLOWED_DIR": "path/to/your/project",
+        "ALLOWED_COMMANDS": "curl,wget,http",
+        "ALLOWED_FLAGS": "-L,-H,-X,-d,--data,--header,--request,--output,-O,-s,--silent",
+        "MAX_COMMAND_LENGTH": "2048",
+        "COMMAND_TIMEOUT": "60"
+      }
+    }
+  }
+}

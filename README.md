@@ -2,6 +2,14 @@
 
 This repository contains configuration and setup for various Model Context Protocol (MCP) servers to use with Claude Desktop and other AI assistants.
 
+## Introduction
+
+This project was created to streamline the setup and management of MCP servers for use with Claude products. I primarily use this setup with Claude Desktop and Claude Code on Mac OS X, and I'm planning to integrate it with Cursor in the future.
+
+If you're using Windows, you can use this as a general guide, but you'll want to adjust paths and commands accordingly.
+
+This configuration was developed with the help of Claude through Cursor's agent view and web search to ensure we follow best practices. It's designed to be secure, flexible, and easy to maintain.
+
 ## MCP Organization Best Practices
 
 ### Directory Structure
@@ -120,14 +128,36 @@ The Claude Desktop configuration file is located at:
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `C:\Users\USERNAME\AppData\Roaming\Claude\claude_desktop_config.json`
 
-You can copy `claude_desktop_config.json` from this repository to the appropriate location on your system:
+### Setting Up Your Configuration
+
+This repository includes two configuration files:
+
+- `claude_desktop_config.template.json` - A template with placeholders for paths and settings
+- Your actual configuration file (excluded from git by default)
+
+To set up your configuration:
+
+1. Create a custom configuration file:
+
+```bash
+cp claude_desktop_config.template.json claude_desktop_config.custom.json
+```
+
+2. Edit your custom configuration file to include your specific paths and settings:
+
+```bash
+# Edit with your preferred text editor
+nano claude_desktop_config.custom.json
+```
+
+3. Install your configuration:
 
 ```bash
 # On macOS
-cp claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json
+./install-config.sh
 
 # On Windows (PowerShell)
-Copy-Item claude_desktop_config.json -Destination "$env:APPDATA\Claude\claude_desktop_config.json"
+# The install script will use your custom config
 ```
 
 **Important:** After updating the configuration file, you must restart Claude Desktop for changes to take effect.
@@ -335,3 +365,31 @@ See [uv_notes.md](./uv_notes.md) for detailed information on working with uv for
 - [MCP Installer](https://github.com/anaisbetts/mcp-installer)
 - [CLI MCP Server](https://github.com/MladenSU/cli-mcp-server)
 - [Building MCP Servers Guide](https://composio.dev/blog/mcp-server-step-by-step-guide-to-building-from-scrtch/)
+
+## Security Best Practices
+
+When working with MCP servers that require API keys and tokens, it's important to follow security best practices:
+
+1. **Never commit sensitive information**:
+
+   - API keys, tokens, and credentials should never be committed to your repository
+   - Use environment variables and separate files that are excluded in `.gitignore`
+
+2. **Avoid accidental commits**:
+
+   - Use specific `git add` commands instead of catch-all `git add .`
+   - Review changes with `git diff --cached` before committing
+   - Set up a pre-commit hook to check for sensitive data
+
+3. **If sensitive data is accidentally committed**:
+
+   - Use `git filter-repo` to permanently remove it from history
+   - Change any exposed credentials immediately
+   - Force push the cleaned repository
+
+4. **Configuration separation**:
+   - Use template files with placeholders for sensitive values
+   - Keep actual configuration files local and excluded from git
+   - Our approach of separating `claude_desktop_config.template.json` from your actual config provides this protection
+
+For more details on removing sensitive data from repositories, see GitHub's [official documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).

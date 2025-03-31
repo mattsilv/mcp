@@ -46,4 +46,10 @@ build/
 *.egg-info/
 
 # Docker related
-.docker/ 
+.docker/
+
+# Production config files
+claude_desktop_config.json
+claude_desktop_config.original.json
+claude_desktop_config.prod.json docker-builds/servers/
+docker-builds/

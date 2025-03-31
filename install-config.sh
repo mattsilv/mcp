@@ -3,8 +3,21 @@
 # Script to copy Claude Desktop config file to the correct location
 # This ensures the MCP servers configuration is properly installed
 
-# Define source and destination paths
-SOURCE_CONFIG="./claude_desktop_config.json"
+# Determine source config - use custom if it exists, otherwise use template
+if [ -f "./claude_desktop_config.custom.json" ]; then
+    SOURCE_CONFIG="./claude_desktop_config.custom.json"
+    echo "Using custom configuration file"
+elif [ -f "./claude_desktop_config.json" ] && [ ! -f "./claude_desktop_config.custom.json" ]; then
+    SOURCE_CONFIG="./claude_desktop_config.json"
+    echo "Using existing configuration file"
+else
+    echo "No custom configuration found. Please create one by copying the template:"
+    echo "cp claude_desktop_config.template.json claude_desktop_config.custom.json"
+    echo "Then edit claude_desktop_config.custom.json with your specific paths and settings."
+    exit 1
+fi
+
+# Define destination path
 DEST_DIR="$HOME/Library/Application Support/Claude"
 DEST_CONFIG="$DEST_DIR/claude_desktop_config.json"
 
