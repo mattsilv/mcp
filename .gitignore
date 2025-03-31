@@ -1,0 +1,49 @@
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+test.db
+
+# Secrets and credentials
+.claude_env
+*_token*
+*.key
+*.pem
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Node modules
+node_modules/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+log/
+logs/
+
+# Build directories
+dist/
+build/
+*.egg-info/
+
+# Docker related
+.docker/ 
